@@ -21,6 +21,9 @@ resource "aws_iam_role" "demo-node" {
   ]
 }
 POLICY
+  tags = {
+    yor_trace = "7a8490f3-479b-459c-92c7-aefb7c422cc6"
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "demo-node-AmazonEKSWorkerNodePolicy" {
@@ -55,4 +58,7 @@ resource "aws_eks_node_group" "demo" {
     aws_iam_role_policy_attachment.demo-node-AmazonEKS_CNI_Policy,
     aws_iam_role_policy_attachment.demo-node-AmazonEC2ContainerRegistryReadOnly,
   ]
+  tags = {
+    yor_trace = "60521fb4-002e-4ab2-8316-c4d88229b82f"
+  }
 }

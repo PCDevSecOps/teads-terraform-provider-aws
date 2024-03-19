@@ -10,10 +10,16 @@ resource "aws_db_instance" "default" {
   password               = "${var.password}"
   vpc_security_group_ids = ["${aws_security_group.default.id}"]
   db_subnet_group_name   = "${aws_db_subnet_group.default.id}"
+  tags = {
+    yor_trace = "97f3b795-3ccd-4c97-ab45-7f7c9c615797"
+  }
 }
 
 resource "aws_db_subnet_group" "default" {
   name        = "main_subnet_group"
   description = "Our main group of subnets"
   subnet_ids  = ["${aws_subnet.subnet_1.id}", "${aws_subnet.subnet_2.id}"]
+  tags = {
+    yor_trace = "9361bf16-b7c6-4ac1-ac36-ec82c8eeaeb1"
+  }
 }

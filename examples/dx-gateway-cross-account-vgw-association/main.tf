@@ -24,7 +24,8 @@ resource "aws_vpc" "example" {
   cidr_block = "10.255.255.0/28"
 
   tags = {
-    Name = "terraform-example"
+    Name      = "terraform-example"
+    yor_trace = "b1c267e0-38c4-41e2-97bd-2b60fa271a32"
   }
 }
 
@@ -34,7 +35,8 @@ resource "aws_vpn_gateway" "example" {
   vpc_id = "${aws_vpc.example.id}"
 
   tags = {
-    Name = "terraform-example"
+    Name      = "terraform-example"
+    yor_trace = "4b1c6fb8-6d3c-4ef5-a213-015074c7676a"
   }
 }
 

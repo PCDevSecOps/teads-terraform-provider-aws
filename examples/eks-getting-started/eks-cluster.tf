@@ -22,6 +22,9 @@ resource "aws_iam_role" "demo-cluster" {
   ]
 }
 POLICY
+  tags = {
+    yor_trace = "2d8d58a5-5650-4198-b63a-8628d5eb8e6f"
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "demo-cluster-AmazonEKSClusterPolicy" {
@@ -47,7 +50,8 @@ resource "aws_security_group" "demo-cluster" {
   }
 
   tags = {
-    Name = "terraform-eks-demo"
+    Name      = "terraform-eks-demo"
+    yor_trace = "9dc55516-e8d0-4518-941e-ee77c66856bd"
   }
 }
 
@@ -74,4 +78,7 @@ resource "aws_eks_cluster" "demo" {
     aws_iam_role_policy_attachment.demo-cluster-AmazonEKSClusterPolicy,
     aws_iam_role_policy_attachment.demo-cluster-AmazonEKSServicePolicy,
   ]
+  tags = {
+    yor_trace = "5bbf2889-a0ee-4897-aaaf-8e403141e2b5"
+  }
 }

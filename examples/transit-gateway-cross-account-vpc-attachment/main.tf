@@ -30,7 +30,8 @@ resource "aws_ec2_transit_gateway" "example" {
   provider = "aws.first"
 
   tags = {
-    Name = "terraform-example"
+    Name      = "terraform-example"
+    yor_trace = "effd761b-26c8-4e91-9cf4-bb26f2541fe8"
   }
 }
 
@@ -40,7 +41,8 @@ resource "aws_ram_resource_share" "example" {
   name = "terraform-example"
 
   tags = {
-    Name = "terraform-example"
+    Name      = "terraform-example"
+    yor_trace = "953f2836-6a2e-446a-b719-c92398f3febc"
   }
 }
 
@@ -66,7 +68,8 @@ resource "aws_vpc" "example" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = "terraform-example"
+    Name      = "terraform-example"
+    yor_trace = "0edffef3-0c61-4411-bab5-f7c8ea0befe2"
   }
 }
 
@@ -78,7 +81,8 @@ resource "aws_subnet" "example" {
   vpc_id            = "${aws_vpc.example.id}"
 
   tags = {
-    Name = "terraform-example"
+    Name      = "terraform-example"
+    yor_trace = "350a9ab2-f996-4e45-b34b-7b56ed8a6cdc"
   }
 }
 
@@ -93,8 +97,9 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "example" {
   vpc_id             = "${aws_vpc.example.id}"
 
   tags = {
-    Name = "terraform-example"
-    Side = "Creator"
+    Name      = "terraform-example"
+    Side      = "Creator"
+    yor_trace = "1865115c-a229-4983-8f95-faf65a17131b"
   }
 }
 
@@ -105,7 +110,8 @@ resource "aws_ec2_transit_gateway_vpc_attachment_accepter" "example" {
   transit_gateway_attachment_id = "${aws_ec2_transit_gateway_vpc_attachment.example.id}"
 
   tags = {
-    Name = "terraform-example"
-    Side = "Accepter"
+    Name      = "terraform-example"
+    Side      = "Accepter"
+    yor_trace = "60351ed4-c9e0-4a93-8072-7d76fe4e9fb6"
   }
 }

@@ -41,6 +41,9 @@ resource "aws_dynamodb_table" "ConnectionsTable" {
   server_side_encryption {
     enabled = true
   }
+  tags = {
+    yor_trace = "adf18e9c-7c0b-464e-bc8e-53d317fd5491"
+  }
 }
 
 # See https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-template-list.html#dynamo-db-crud-policy.
@@ -70,6 +73,9 @@ resource "aws_iam_policy" "DynamoDBCrudPolicy" {
   }]
 }
 EOT
+  tags = {
+    yor_trace = "2ad3eff5-107c-44d3-8edd-7caf0d53c33c"
+  }
 }
 
 #
@@ -80,6 +86,9 @@ resource "aws_apigatewayv2_api" "SimpleChatWebSocket" {
   name                       = "SimpleChatWebSocket"
   protocol_type              = "WEBSOCKET"
   route_selection_expression = "$request.body.message"
+  tags = {
+    yor_trace = "46bc8892-5be4-41c3-b357-5d49d9524ec8"
+  }
 }
 
 resource "aws_apigatewayv2_deployment" "Deployment" {
@@ -97,6 +106,9 @@ resource "aws_apigatewayv2_stage" "Stage" {
   name          = "Prod"
   description   = "Prod Stage"
   deployment_id = "${aws_apigatewayv2_deployment.Deployment.id}"
+  tags = {
+    yor_trace = "9e09e243-73d7-4bf5-9eee-ea60d63b9a0d"
+  }
 }
 
 ###########
@@ -179,6 +191,9 @@ resource "aws_lambda_function" "OnConnectFunction" {
       TABLE_NAME = "${aws_dynamodb_table.ConnectionsTable.name}"
     }
   }
+  tags = {
+    yor_trace = "453bc83c-0d8e-4ea1-a7a9-ddcab15416e1"
+  }
 }
 
 resource "aws_lambda_permission" "OnConnectPermission" {
@@ -202,6 +217,9 @@ resource "aws_iam_role" "OnConnectRole" {
   }]
 }
 EOT
+  tags = {
+    yor_trace = "9b283ee4-e7eb-4ccb-9b90-360d7296af74"
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "OnConnectRoleDynamoDBCrudPolicyAttachment" {
@@ -234,6 +252,9 @@ resource "aws_iam_policy" "OnConnectCloudWatchLogsPolicy" {
   ]
 }
 EOT
+  tags = {
+    yor_trace = "8bc0ab48-2510-4a9d-8481-aeb73dccb8b8"
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "OnConnectRoleOnConnectCloudWatchLogsPolicyAttachment" {
@@ -263,6 +284,9 @@ resource "aws_lambda_function" "OnDisconnectFunction" {
       TABLE_NAME = "${aws_dynamodb_table.ConnectionsTable.name}"
     }
   }
+  tags = {
+    yor_trace = "3b52597d-1ce5-4334-a2df-4d9c265ca68d"
+  }
 }
 
 resource "aws_lambda_permission" "OnDisconnectPermission" {
@@ -286,6 +310,9 @@ resource "aws_iam_role" "OnDisconnectRole" {
   }]
 }
 EOT
+  tags = {
+    yor_trace = "876500b7-33e1-4701-b4dc-8c84f12346fa"
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "OnDisconnectRoleDynamoDBCrudPolicyAttachment" {
@@ -318,6 +345,9 @@ resource "aws_iam_policy" "OnDisconnectCloudWatchLogsPolicy" {
   ]
 }
 EOT
+  tags = {
+    yor_trace = "cd9b5207-047e-4bc6-98db-ed82c07f1f44"
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "OnDisconnectRoleOnDisconnectCloudWatchLogsPolicyAttachment" {
@@ -347,6 +377,9 @@ resource "aws_lambda_function" "SendMessageFunction" {
       TABLE_NAME = "${aws_dynamodb_table.ConnectionsTable.name}"
     }
   }
+  tags = {
+    yor_trace = "1ba02834-31c8-49c6-9243-f615da26ba26"
+  }
 }
 
 resource "aws_lambda_permission" "SendMessagePermission" {
@@ -370,6 +403,9 @@ resource "aws_iam_role" "SendMessageRole" {
   }]
 }
 EOT
+  tags = {
+    yor_trace = "e4a48c47-b5af-4feb-93da-0676d167e793"
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "SendMessageRoleDynamoDBCrudPolicyAttachment" {
@@ -402,6 +438,9 @@ resource "aws_iam_policy" "SendMessageCloudWatchLogsPolicy" {
   ]
 }
 EOT
+  tags = {
+    yor_trace = "679d3ee7-e265-4eb8-a042-f50ef6941cf8"
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "SendMessageRoleSendMessageCloudWatchLogsPolicyAttachment" {
@@ -422,6 +461,9 @@ resource "aws_iam_policy" "SendMessageManageConnectionsPolicy" {
   }]
 }
 EOT
+  tags = {
+    yor_trace = "7178662d-0078-48e5-a1c5-3be34db3d0aa"
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "SendMessageRoleSendMessageManageConnectionsPolicyAttachment" {

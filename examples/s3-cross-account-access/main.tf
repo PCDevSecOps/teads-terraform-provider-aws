@@ -28,6 +28,9 @@ resource "aws_s3_bucket" "prod" {
   ]
 }
 POLICY
+  tags = {
+    yor_trace = "47aaa297-0536-4977-8988-c6bcd7d25acc"
+  }
 }
 
 resource "aws_s3_bucket_object" "prod" {
@@ -36,6 +39,9 @@ resource "aws_s3_bucket_object" "prod" {
   bucket = "${aws_s3_bucket.prod.id}"
   key    = "object-uploaded-via-prod-creds"
   source = "${path.module}/prod.txt"
+  tags = {
+    yor_trace = "338f24db-30c7-472f-a350-16a2fc788e1a"
+  }
 }
 
 provider "aws" {
@@ -52,4 +58,7 @@ resource "aws_s3_bucket_object" "test" {
   bucket = "${aws_s3_bucket.prod.id}"
   key    = "object-uploaded-via-test-creds"
   source = "${path.module}/test.txt"
+  tags = {
+    yor_trace = "5afbff01-95d7-483d-a851-3c8f7ab5ad08"
+  }
 }

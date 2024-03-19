@@ -22,6 +22,9 @@ resource "aws_iam_policy" "s3_policy" {
     ]
 }
 EOF
+  tags = {
+    yor_trace = "903b684b-eb4a-42e0-a2ff-4772d5774d15"
+  }
 }
 
 # Create API Gateway Role
@@ -44,6 +47,9 @@ resource "aws_iam_role" "s3_api_gateyway_role" {
   ]
 } 
   EOF
+  tags = {
+    yor_trace = "1d9d3c38-86f1-496c-a638-842eecbb3210"
+  }
 }
 
 # Attach S3 Access Policy to the API Gateway Role
@@ -55,6 +61,9 @@ resource "aws_iam_role_policy_attachment" "s3_policy_attach" {
 resource "aws_api_gateway_rest_api" "MyS3" {
   name        = "MyS3"
   description = "API for S3 Integration"
+  tags = {
+    yor_trace = "2b503398-cfe7-4e5e-a1b5-527230dbb005"
+  }
 }
 
 resource "aws_api_gateway_resource" "Folder" {

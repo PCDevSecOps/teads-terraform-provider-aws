@@ -18,6 +18,9 @@ resource "aws_lambda_function" "default" {
   role             = "${aws_iam_role.default.arn}"
   handler          = "lambda_function.lambda_handler"
   runtime          = "python2.7"
+  tags = {
+    yor_trace = "9608918d-f599-4034-868f-9cd327d9cd7f"
+  }
 }
 
 resource "aws_iam_role" "default" {
@@ -38,6 +41,9 @@ resource "aws_iam_role" "default" {
   ]
 }
 EOF
+  tags = {
+    yor_trace = "6e8a1c8e-6f0e-4deb-9d7f-964564d96b28"
+  }
 }
 
 ####

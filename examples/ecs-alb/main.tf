@@ -11,6 +11,9 @@ data "aws_availability_zones" "available" {}
 
 resource "aws_vpc" "main" {
   cidr_block = "10.10.0.0/16"
+  tags = {
+    yor_trace = "5c95d3ce-076c-48b1-998f-b86f72751b3d"
+  }
 }
 
 resource "aws_subnet" "main" {
@@ -18,10 +21,16 @@ resource "aws_subnet" "main" {
   cidr_block        = "${cidrsubnet(aws_vpc.main.cidr_block, 8, count.index)}"
   availability_zone = "${data.aws_availability_zones.available.names[count.index]}"
   vpc_id            = "${aws_vpc.main.id}"
+  tags = {
+    yor_trace = "6fb94e67-580b-4249-9828-f078e3598447"
+  }
 }
 
 resource "aws_internet_gateway" "gw" {
   vpc_id = "${aws_vpc.main.id}"
+  tags = {
+    yor_trace = "1fc9d0c6-fcee-48ad-b0ec-216fa47bff00"
+  }
 }
 
 resource "aws_route_table" "r" {
@@ -30,6 +39,9 @@ resource "aws_route_table" "r" {
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = "${aws_internet_gateway.gw.id}"
+  }
+  tags = {
+    yor_trace = "1d03c365-6014-462a-88b3-ab773dc1e018"
   }
 }
 
@@ -124,6 +136,9 @@ resource "aws_security_group" "lb_sg" {
       "0.0.0.0/0",
     ]
   }
+  tags = {
+    yor_trace = "f1b4185c-c9c6-43f8-a585-9dd080049f98"
+  }
 }
 
 resource "aws_security_group" "instance_sg" {
@@ -157,12 +172,18 @@ resource "aws_security_group" "instance_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  tags = {
+    yor_trace = "ab8dc61e-4dd7-4b4f-a58d-a76f9d835dcc"
+  }
 }
 
 ## ECS
 
 resource "aws_ecs_cluster" "main" {
   name = "terraform_example_ecs_cluster"
+  tags = {
+    yor_trace = "ea723cbb-ce1f-4d9f-a01e-7f2ca77fbc8a"
+  }
 }
 
 data "template_file" "task_definition" {
@@ -179,6 +200,9 @@ data "template_file" "task_definition" {
 resource "aws_ecs_task_definition" "ghost" {
   family                = "tf_example_ghost_td"
   container_definitions = "${data.template_file.task_definition.rendered}"
+  tags = {
+    yor_trace = "58936022-4401-4a44-b68b-beae157f9582"
+  }
 }
 
 resource "aws_ecs_service" "test" {
@@ -198,6 +222,9 @@ resource "aws_ecs_service" "test" {
     "aws_iam_role_policy.ecs_service",
     "aws_alb_listener.front_end",
   ]
+  tags = {
+    yor_trace = "f4174c52-91f2-4cfa-b7b7-3a78d4efd17d"
+  }
 }
 
 ## IAM
@@ -220,6 +247,9 @@ resource "aws_iam_role" "ecs_service" {
   ]
 }
 EOF
+  tags = {
+    yor_trace = "71ca2212-e619-41cc-b5fe-a1bf48ca8ac4"
+  }
 }
 
 resource "aws_iam_role_policy" "ecs_service" {
@@ -250,6 +280,9 @@ EOF
 resource "aws_iam_instance_profile" "app" {
   name = "tf-ecs-instprofile"
   role = "${aws_iam_role.app_instance.name}"
+  tags = {
+    yor_trace = "2690c821-2bd7-41af-96dc-409c13158570"
+  }
 }
 
 resource "aws_iam_role" "app_instance" {
@@ -270,6 +303,9 @@ resource "aws_iam_role" "app_instance" {
   ]
 }
 EOF
+  tags = {
+    yor_trace = "91c63be2-bbbb-47c2-919d-bf230fcea7d4"
+  }
 }
 
 data "template_file" "instance_profile" {
@@ -294,12 +330,18 @@ resource "aws_alb_target_group" "test" {
   port     = 8080
   protocol = "HTTP"
   vpc_id   = "${aws_vpc.main.id}"
+  tags = {
+    yor_trace = "ead0777e-e25b-4dac-8dfc-74121ef9c1a2"
+  }
 }
 
 resource "aws_alb" "main" {
   name            = "tf-example-alb-ecs"
   subnets         = ["${aws_subnet.main.*.id}"]
   security_groups = ["${aws_security_group.lb_sg.id}"]
+  tags = {
+    yor_trace = "fb421596-d6ff-4a9e-9537-06dc2e94ad6f"
+  }
 }
 
 resource "aws_alb_listener" "front_end" {
@@ -311,14 +353,23 @@ resource "aws_alb_listener" "front_end" {
     target_group_arn = "${aws_alb_target_group.test.id}"
     type             = "forward"
   }
+  tags = {
+    yor_trace = "dcb099fe-b63d-404a-a9d5-17b572863d7e"
+  }
 }
 
 ## CloudWatch Logs
 
 resource "aws_cloudwatch_log_group" "ecs" {
   name = "tf-ecs-group/ecs-agent"
+  tags = {
+    yor_trace = "d0549237-140b-4aa4-b992-f0d438a5612f"
+  }
 }
 
 resource "aws_cloudwatch_log_group" "app" {
   name = "tf-ecs-group/app-ghost"
+  tags = {
+    yor_trace = "dceb9ef8-0078-4c86-b849-bacddf6ee026"
+  }
 }
