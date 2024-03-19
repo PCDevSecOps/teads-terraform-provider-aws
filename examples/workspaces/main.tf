@@ -10,6 +10,9 @@ resource "aws_workspaces_directory" "example" {
   # depends_on = [
   #   "aws_iam_role.workspaces-default"
   # ]
+  tags = {
+    yor_trace = "468739b5-dae5-4e35-8bb8-42117c6f1110"
+  }
 }
 
 data "aws_workspaces_bundle" "value_windows" {
@@ -37,6 +40,7 @@ resource "aws_workspaces_workspace" "example" {
 
   tags = {
     Department = "IT"
+    yor_trace  = "0e88f64a-b4b0-453d-81ec-90088850fc43"
   }
 
   # Uncomment this meta-argument if you are creating the IAM resources required by the AWS WorkSpaces service.
@@ -58,6 +62,9 @@ resource "aws_workspaces_ip_group" "main" {
   rules {
     source      = "11.11.11.11/16"
     description = "Contractors"
+  }
+  tags = {
+    yor_trace = "d3818828-add5-40e5-9632-4cd984cdb1bb"
   }
 }
 
@@ -85,18 +92,27 @@ locals {
 
 resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
+  tags = {
+    yor_trace = "54b31329-76b3-4b5b-9bd5-276d7fd6b62c"
+  }
 }
 
 resource "aws_subnet" "private-a" {
   vpc_id               = "${aws_vpc.main.id}"
   availability_zone_id = "${local.workspaces_az_ids[0]}"
   cidr_block           = "10.0.1.0/24"
+  tags = {
+    yor_trace = "40efae8d-4600-4744-9744-275bdad5c75a"
+  }
 }
 
 resource "aws_subnet" "private-b" {
   vpc_id               = "${aws_vpc.main.id}"
   availability_zone_id = "${local.workspaces_az_ids[1]}"
   cidr_block           = "10.0.2.0/24"
+  tags = {
+    yor_trace = "8de306bd-84e6-4d09-a907-351520afe3fd"
+  }
 }
 
 resource "aws_directory_service_directory" "example" {
@@ -107,8 +123,14 @@ resource "aws_directory_service_directory" "example" {
     vpc_id     = "${aws_vpc.main.id}"
     subnet_ids = ["${aws_subnet.private-a.id}", "${aws_subnet.private-b.id}"]
   }
+  tags = {
+    yor_trace = "30a74a12-f694-47be-8892-cbc23147168d"
+  }
 }
 
 resource "aws_kms_key" "example" {
   description = "WorkSpaces example key"
+  tags = {
+    yor_trace = "7dee9696-ca73-4d40-82a6-381892ca62f6"
+  }
 }

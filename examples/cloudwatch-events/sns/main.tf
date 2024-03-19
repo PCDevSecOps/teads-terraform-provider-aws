@@ -17,6 +17,9 @@ resource "aws_cloudwatch_event_rule" "foo" {
   }
 }
 PATTERN
+  tags = {
+    yor_trace = "e1fccd56-eb79-4d8e-970e-b89bbceeb74a"
+  }
 }
 
 resource "aws_cloudwatch_event_target" "bar" {
@@ -27,4 +30,7 @@ resource "aws_cloudwatch_event_target" "bar" {
 
 resource "aws_sns_topic" "foo" {
   name = "${var.sns_topic_name}"
+  tags = {
+    yor_trace = "b0400074-3ddc-4c36-8913-8bd6043d6fb4"
+  }
 }

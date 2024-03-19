@@ -28,6 +28,9 @@ data "aws_iam_policy_document" "policy" {
 resource "aws_iam_role" "iam_for_lambda" {
   name               = "iam_for_lambda"
   assume_role_policy = "${data.aws_iam_policy_document.policy.json}"
+  tags = {
+    yor_trace = "3475e73b-5c60-4215-af7c-1a6479db740d"
+  }
 }
 
 resource "aws_lambda_function" "lambda" {
@@ -44,5 +47,8 @@ resource "aws_lambda_function" "lambda" {
     variables = {
       greeting = "Hello"
     }
+  }
+  tags = {
+    yor_trace = "9a59cb17-9adc-47fa-97c3-c01d8596ff9a"
   }
 }

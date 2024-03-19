@@ -27,6 +27,9 @@ resource "aws_elb" "web-elb" {
     target              = "HTTP:80/"
     interval            = 30
   }
+  tags = {
+    yor_trace = "8e00e627-3fc2-40de-8d7e-a0d9c04a9ba9"
+  }
 }
 
 resource "aws_autoscaling_group" "web-asg" {
@@ -86,5 +89,8 @@ resource "aws_security_group" "default" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags = {
+    yor_trace = "54cd5e6f-0cc9-4045-9773-5ce6cd723247"
   }
 }

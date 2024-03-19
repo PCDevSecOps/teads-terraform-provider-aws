@@ -8,7 +8,8 @@ resource "aws_vpc" "cloudhsm_v2_vpc" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = "example-aws_cloudhsm_v2_cluster"
+    Name      = "example-aws_cloudhsm_v2_cluster"
+    yor_trace = "ece31089-c9cc-4a42-8674-1e8e0eda13a8"
   }
 }
 
@@ -20,7 +21,8 @@ resource "aws_subnet" "cloudhsm_v2_subnets" {
   availability_zone       = "${element(data.aws_availability_zones.available.names, count.index)}"
 
   tags = {
-    Name = "example-aws_cloudhsm_v2_cluster"
+    Name      = "example-aws_cloudhsm_v2_cluster"
+    yor_trace = "8e6e0405-5b3a-4b10-8511-e6d83b74ecdd"
   }
 }
 
@@ -29,7 +31,8 @@ resource "aws_cloudhsm_v2_cluster" "cloudhsm_v2_cluster" {
   subnet_ids = ["${aws_subnet.cloudhsm_v2_subnets.*.id}"]
 
   tags = {
-    Name = "example-aws_cloudhsm_v2_cluster"
+    Name      = "example-aws_cloudhsm_v2_cluster"
+    yor_trace = "4155567a-7b38-463c-8fa0-c2d20a20c5aa"
   }
 }
 

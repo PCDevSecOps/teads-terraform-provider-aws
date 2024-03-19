@@ -9,4 +9,7 @@ resource "aws_security_group" "az" {
     protocol    = -1
     cidr_blocks = ["${aws_subnet.main.cidr_block}"]
   }
+  tags = {
+    yor_trace = "0b412f95-74f5-400e-9b27-b83a90ab3352"
+  }
 }

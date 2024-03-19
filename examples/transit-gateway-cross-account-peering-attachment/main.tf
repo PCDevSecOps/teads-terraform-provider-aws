@@ -28,7 +28,8 @@ resource "aws_ec2_transit_gateway" "first" {
   provider = "aws.first"
 
   tags = {
-    Name = "terraform-example"
+    Name      = "terraform-example"
+    yor_trace = "739bd32a-c24e-4bc9-a64b-6afc03216783"
   }
 }
 
@@ -38,7 +39,8 @@ resource "aws_ram_resource_share" "example" {
   name = "terraform-example"
 
   tags = {
-    Name = "terraform-example"
+    Name      = "terraform-example"
+    yor_trace = "56ca055f-a417-4ea5-bdea-fcddcff59ba0"
   }
 }
 
@@ -62,7 +64,8 @@ resource "aws_ec2_transit_gateway" "second" {
   provider = "aws.second"
 
   tags = {
-    Name = "terraform-example"
+    Name      = "terraform-example"
+    yor_trace = "4a7fe47f-4ff9-438e-9f2d-87cad0231a84"
   }
 }
 
@@ -75,8 +78,9 @@ resource "aws_ec2_transit_gateway_peering_attachment" "example" {
   peer_transit_gateway_id = "${aws_ec2_transit_gateway.first.id}"
   transit_gateway_id      = "${aws_ec2_transit_gateway.second.id}"
   tags = {
-    Name = "terraform-example"
-    Side = "Creator"
+    Name      = "terraform-example"
+    Side      = "Creator"
+    yor_trace = "ac76255b-4afb-4b09-a991-f0ed6b9795ee"
   }
   depends_on = ["aws_ram_principal_association.example", "aws_ram_resource_association.example"]
 

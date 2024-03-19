@@ -19,6 +19,9 @@ resource "aws_cloudwatch_event_rule" "foo" {
 PATTERN
 
   role_arn = "${aws_iam_role.role.arn}"
+  tags = {
+    yor_trace = "6f1550ae-c33e-4d18-8b17-0253c1bbff52"
+  }
 }
 
 resource "aws_iam_role" "role" {
@@ -39,6 +42,9 @@ resource "aws_iam_role" "role" {
   ]
 }
 POLICY
+  tags = {
+    yor_trace = "33ff3cdc-70b7-47ad-be46-c0f044264cf7"
+  }
 }
 
 resource "aws_iam_role_policy" "policy" {
@@ -73,4 +79,7 @@ resource "aws_cloudwatch_event_target" "foobar" {
 resource "aws_kinesis_stream" "foo" {
   name        = "${var.stream_name}"
   shard_count = 1
+  tags = {
+    yor_trace = "5eb29408-3415-469b-bcc9-6834ab860895"
+  }
 }

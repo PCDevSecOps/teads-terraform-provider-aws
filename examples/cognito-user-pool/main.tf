@@ -16,6 +16,9 @@ resource "aws_iam_role" "main" {
   ]
 }
 EOF
+  tags = {
+    yor_trace = "1aeccc5a-6ddf-44a1-bc65-e60c40191473"
+  }
 }
 
 resource "aws_lambda_function" "main" {
@@ -24,6 +27,9 @@ resource "aws_lambda_function" "main" {
   role          = "${aws_iam_role.main.arn}"
   handler       = "exports.example"
   runtime       = "nodejs4.3"
+  tags = {
+    yor_trace = "f1fe9b11-bce9-4af1-9d49-19df74351308"
+  }
 }
 
 resource "aws_iam_role" "cidp" {
@@ -50,6 +56,9 @@ resource "aws_iam_role" "cidp" {
   ]
 }
 POLICY
+  tags = {
+    yor_trace = "3f618311-3c5f-435b-95e3-2b2cace896e2"
+  }
 }
 
 resource "aws_iam_role_policy" "main" {
@@ -145,5 +154,6 @@ resource "aws_cognito_user_pool" "pool" {
   tags = {
     "Name"    = "FooBar"
     "Project" = "Terraform"
+    yor_trace = "793fa3f7-a593-4a7b-87e6-fc615851ee97"
   }
 }

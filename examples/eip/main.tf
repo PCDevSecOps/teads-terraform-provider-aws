@@ -6,6 +6,9 @@ provider "aws" {
 resource "aws_eip" "default" {
   instance = "${aws_instance.web.id}"
   vpc      = true
+  tags = {
+    yor_trace = "88ee68b8-a896-4421-be74-b3940d02bb4a"
+  }
 }
 
 # Our default security group to access
@@ -37,6 +40,9 @@ resource "aws_security_group" "default" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  tags = {
+    yor_trace = "6d3a8719-722d-45de-abe8-1a8e8166c7e6"
+  }
 }
 
 resource "aws_instance" "web" {
@@ -63,6 +69,7 @@ resource "aws_instance" "web" {
 
   #Instance tags
   tags = {
-    Name = "eip-example"
+    Name      = "eip-example"
+    yor_trace = "595c3db0-427b-42f9-a1e9-2773be8b5343"
   }
 }
